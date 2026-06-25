@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت نوبت‌ها</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>مدیریت نوبت‌ها</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <input type="text" id="foreignerCode" placeholder="کد تبعه">
+            <select id="appointmentPlan"></select>
+            <select id="appointmentOffice"></select>
+            <input type="date" id="appointmentDate">
+            <input type="time" id="appointmentTime">
+            <button onclick="addAppointment()">ثبت نوبت</button>
+        </div>
+
+        <table id="appointmentsTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>کد تبعه</th>
+                    <th>طرح</th>
+                    <th>دفتر</th>
+                    <th>تاریخ</th>
+                    <th>ساعت</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="appointmentsBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/appointments.js"></script>
+</body>
+</html>

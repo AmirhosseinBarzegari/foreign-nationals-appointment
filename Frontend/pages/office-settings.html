@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ویرایش تنظیمات دفاتر</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>ویرایش تنظیمات دفاتر</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <select id="settingsOffice" onchange="loadSelectedSettings()"></select>
+            
+            <div id="settingsForm" style="display: none;">
+                <input type="number" id="dailyCapacity" placeholder="ظرفیت روزانه">
+                <input type="number" id="appointmentDuration" placeholder="فاصله بین نوبت‌ها (دقیقه)">
+                <input type="time" id="startTime">
+                <input type="time" id="endTime">
+                <div class="working-days">
+                    <label><input type="checkbox" value="0"> یکشنبه</label>
+                    <label><input type="checkbox" value="1"> دوشنبه</label>
+                    <label><input type="checkbox" value="2"> سه‌شنبه</label>
+                    <label><input type="checkbox" value="3"> چهارشنبه</label>
+                    <label><input type="checkbox" value="4"> پنجشنبه</label>
+                    <label><input type="checkbox" value="5"> جمعه</label>
+                    <label><input type="checkbox" value="6"> شنبه</label>
+                </div>
+                <button onclick="saveSettings()">ذخیره تغییرات</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/office-settings.js"></script>
+</body>
+</html>

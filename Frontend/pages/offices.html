@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت دفاتر</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>مدیریت دفاتر</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <input type="text" id="officeName" placeholder="نام دفتر">
+            <input type="text" id="officeAddress" placeholder="آدرس">
+            <select id="officeProvince"></select>
+            
+            <hr>
+            <strong>تنظیمات نوبت‌دهی:</strong>
+            <input type="number" id="dailyCapacity" placeholder="ظرفیت روزانه">
+            <input type="number" id="appointmentDuration" placeholder="فاصله بین نوبت‌ها (دقیقه)">
+            <input type="time" id="startTime">
+            <input type="time" id="endTime">
+            <div class="working-days">
+                <label><input type="checkbox" value="0"> شنبه</label>
+                <label><input type="checkbox" value="1"> یکشنبه</label>
+                <label><input type="checkbox" value="2"> دوشنبه</label>
+                <label><input type="checkbox" value="3"> سه‌شنبه</label>
+                <label><input type="checkbox" value="4"> چهارشنبه</label>
+                <label><input type="checkbox" value="5"> پنجشنبه</label>
+                <label><input type="checkbox" value="6"> جمعه</label>
+            </div>
+
+            <button onclick="addOffice()">افزودن دفتر</button>
+        </div>
+
+        <table id="officesTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام</th>
+                    <th>آدرس</th>
+                    <th>استان</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="officesBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/offices.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت استان‌ها</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>مدیریت استان‌ها</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form">
+            <input type="text" id="provinceName" placeholder="نام استان">
+            <button onclick="addProvince()">افزودن استان</button>
+        </div>
+
+        <table id="provincesTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام</th>
+                    <th>فعال</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="provincesBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/provinces.js"></script>
+</body>
+</html>

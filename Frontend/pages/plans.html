@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت طرح‌ها</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>مدیریت طرح‌ها</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <input type="text" id="planName" placeholder="نام طرح">
+            <select id="planCodeType">
+                <option value="Yekta">کد یکتا</option>
+                <option value="Passport">پاسپورت</option>
+                <option value="Faragir">کد فراگیر</option>
+                <option value="Khanevade">کد خانوار</option>
+                <option value="Ekhtesasi">کد اختصاصی</option>
+                <option value="Shenasaei">کد شناسایی</option>
+            </select>
+            <input type="date" id="planStartDate">
+            <input type="date" id="planEndDate">
+            <label><input type="checkbox" id="planAllowDuplicate"> اجازه نوبت تکراری</label>
+            <input type="number" id="planMaxDuplicate" placeholder="حداکثر تعداد تکرار" value="0">
+            <button onclick="addPlan()">افزودن طرح</button>
+        </div>
+
+        <table id="plansTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام</th>
+                    <th>نوع کد</th>
+                    <th>تاریخ شروع</th>
+                    <th>تاریخ پایان</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="plansBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/plans.js"></script>
+</body>
+</html>

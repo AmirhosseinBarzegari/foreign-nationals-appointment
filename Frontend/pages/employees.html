@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت کارمندان</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>مدیریت کارمندان</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <input type="text" id="employeeFirstName" placeholder="نام">
+            <input type="text" id="employeeLastName" placeholder="نام خانوادگی">
+            <input type="text" id="employeeUsername" placeholder="نام کاربری">
+            <input type="password" id="employeePassword" placeholder="رمز عبور">
+            <select id="employeeOffice"></select>
+            <button onclick="addEmployee()">افزودن کارمند</button>
+        </div>
+
+        <table id="employeesTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>نام</th>
+                    <th>نام کاربری</th>
+                    <th>دفتر</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="employeesBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/employees.js"></script>
+</body>
+</html>

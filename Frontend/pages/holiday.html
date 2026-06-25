@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت تعطیلات</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>مدیریت تعطیلات</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <input type="date" id="holidayDate">
+            <input type="text" id="holidayReason" placeholder="دلیل تعطیلی">
+            <label><input type="checkbox" id="holidayIsOfficial"> تعطیلی رسمی</label>
+            <select id="holidayProvince">
+                <option value="">کل کشور (بدون استان خاص)</option>
+            </select>
+            <select id="holidayOffice">
+                <option value="">کل استان (بدون دفتر خاص)</option>
+            </select>
+            <button onclick="addHoliday()">افزودن تعطیلی</button>
+        </div>
+
+        <table id="holidaysTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>تاریخ</th>
+                    <th>دلیل</th>
+                    <th>نوع</th>
+                    <th>استان</th>
+                    <th>دفتر</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="holidaysBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/holidays.js"></script>
+</body>
+</html>
+

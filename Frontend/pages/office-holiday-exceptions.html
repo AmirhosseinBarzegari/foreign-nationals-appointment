@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استثناهای تعطیلات</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>استثناهای تعطیلات (دفاتری که در تعطیلی کار می‌کنند)</h2>
+            <a href="dashboard.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form-column">
+            <select id="exceptionOffice"></select>
+            <select id="exceptionHoliday"></select>
+            <!-- <input type="date" id="exceptionDate"> -->
+            <button onclick="addException()">افزودن استثنا</button>
+        </div>
+
+        <table id="exceptionsTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>دفتر</th>
+                    <th>تعطیلی</th>
+                    <th>تاریخ</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="exceptionsBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/office-holiday-exceptions.js"></script>
+</body>
+</html>

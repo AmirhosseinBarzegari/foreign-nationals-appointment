@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مدیریت وابستگی‌های طرح</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="page-header">
+            <h2>وابستگی‌های طرح: <span id="planNameTitle"></span></h2>
+            <a href="plans.html" class="back-btn">بازگشت</a>
+        </div>
+
+        <div class="add-form">
+            <select id="requiredPlanSelect"></select>
+            <button onclick="addDependency()">افزودن وابستگی</button>
+        </div>
+
+        <table id="dependenciesTable">
+            <thead>
+                <tr>
+                    <th>شناسه</th>
+                    <th>طرح پیش‌نیاز</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody id="dependenciesBody"></tbody>
+        </table>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/plan-dependencies.js"></script>
+</body>
+</html>

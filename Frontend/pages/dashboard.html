@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>سامانه نوبت‌دهی اتباع خارجی</h1>
+        <div class="menu-grid">
+            <a href="provinces.html" class="menu-item">مدیریت استان‌ها</a>
+            <a href="offices.html" class="menu-item">مدیریت دفاتر</a>
+            <a href="plans.html" class="menu-item">مدیریت طرح‌ها</a>
+            <a href="appointments.html" class="menu-item">مدیریت نوبت‌ها</a>
+            <a href="employees.html" class="menu-item">مدیریت کارمندان</a>
+            <a href="office-settings.html" class="menu-item">ویرایش تنظیمات دفاتر</a>
+            <a href="holiday.html" class="menu-item"> مدیریت تعطیلات</a>
+            <a href="office-holiday-exceptions.html" class="menu-item">استثناهای تعطیلات</a>
+        </div>
+        <button onclick="logout()" class="logout-btn">خروج</button>
+    </div>
+
+    <script>
+        if (!localStorage.getItem('token')) {
+            window.location.href = '../index.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '../index.html';
+        }
+    </script>
+</body>
+</html>
