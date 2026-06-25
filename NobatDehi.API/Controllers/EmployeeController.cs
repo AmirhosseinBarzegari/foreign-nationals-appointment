@@ -26,6 +26,10 @@ public class EmployeeController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(Employee employee)
     {
+        var exists = await _context.Employees
+                        .AnyAsync(o => o.UserName == employee.UserName);
+        if(exists)
+            return BadRequest("این نام کاربری قبلا ثبت شده است.");               
         employee.Password = BCrypt.Net.BCrypt.HashPassword(employee.Password);
         _context.Employees.Add(employee);
         await _context.SaveChangesAsync();
@@ -41,10 +45,9 @@ public class EmployeeController(AppDbContext context) : ControllerBase
             existingEmployee.FirstName = employee.FirstName;
             existingEmployee.LastName = employee.LastName;
             existingEmployee.IsActive = employee.IsActive;
-            existingEmployee.Password = employee.Password;
+            existingEmployee.Password = BCrypt.Net.BCrypt.HashPassword(employee.Password);
             existingEmployee.UserName = employee.UserName;
             existingEmployee.OfficeId = employee.OfficeId;
-            
 
             await _context.SaveChangesAsync();
             return Ok();

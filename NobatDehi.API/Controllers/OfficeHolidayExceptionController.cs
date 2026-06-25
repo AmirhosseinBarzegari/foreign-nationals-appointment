@@ -31,6 +31,12 @@ public class OfficeHolidayExceptionController(AppDbContext context) : Controller
 
         if (office != null && holiday != null)
         {
+            var exists = await _context.OfficeHolidayExceptions.
+                                AnyAsync(o => o.OfficeId == officeHolidayException.OfficeId
+                                            && o.HolidayId == officeHolidayException.HolidayId);
+            if (exists)
+                return BadRequest("این تعطیلات از قبل به عنوان استثنا ذخیره شده است.");
+                                            
             _context.OfficeHolidayExceptions.Add(officeHolidayException);
             await _context.SaveChangesAsync();
             return Ok();

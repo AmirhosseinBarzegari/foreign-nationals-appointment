@@ -23,6 +23,14 @@ public class PlanController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(Plan plan)
     {
+        if (plan.StartDate <= DateOnly.FromDateTime(DateTime.Today))
+        {
+            return BadRequest("تاریخ شروع اشتباه است.");
+        }
+        if (plan.EndDate <= plan.StartDate)
+        {
+            return BadRequest("تاریخ پایان اشتباه است.");
+        }
         _context.Plans.Add(plan);
         await _context.SaveChangesAsync();
         return Ok();
@@ -49,6 +57,18 @@ public class PlanController(AppDbContext context) : ControllerBase
         {
             return NotFound();
         }
+    }
+
+    [HttpPut("{id}/toggle-status")]
+    public async Task<IActionResult> ToggleStatus(int id) // When we just want to inactive a plan
+    {
+        var plan = await _context.Plans.FindAsync(id);
+        if (plan == null)
+            return NotFound();
+
+        plan.IsActive = !plan.IsActive;
+        await _context.SaveChangesAsync();
+        return Ok();
     }
 
     [HttpDelete("{id}")]

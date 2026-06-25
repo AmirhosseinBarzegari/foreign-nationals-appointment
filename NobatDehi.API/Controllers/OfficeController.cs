@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NobatDehi.API.Data;
+using NobatDehi.API.DTOs;
 using NobatDehi.API.Models;
 
 namespace NobatDehi.API.Controllers;
@@ -22,14 +23,70 @@ public class OfficeController(AppDbContext context) : ControllerBase
         return Ok(offices);
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        var office = await _context.Offices
+        .Include(o => o.Province)
+        .FirstOrDefaultAsync(o => o.Id == id);
+
+        if (office == null)
+            return NotFound();
+            
+        return Ok(office);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(Office office)
     {
+        var exists = await _context.Offices.
+                        AnyAsync(o => o.Name == office.Name
+                                || o.Address == office.Address
+                                && o.ProvinceId == office.ProvinceId);
+        if (exists)
+            return BadRequest("دفتر با مشخصات فوق وجود دارد.");
+
         _context.Offices.Add(office);
         await _context.SaveChangesAsync();
 
         return Ok();
 
+    }
+
+    [HttpPost("with-settings")]
+    public async Task<IActionResult> CreateWithSettings(CreateOfficeDto dto)
+    {
+        var office = new Office
+        {
+            Name = dto.Name,
+            Address = dto.Address,
+            IsActive = true,
+            ProvinceId = dto.ProvinceId
+        };
+
+        _context.Offices.Add(office);
+        await _context.SaveChangesAsync();
+
+        var settings = new OfficeSettings
+        {
+            OfficeId = office.Id,
+            DailyCapacity = dto.DailyCapacity,
+            AppointmentDuration = dto.AppointmentDuration,
+            StartTime = dto.StartTime,
+            EndTime = dto.EndTime,
+            WorkingDays = dto.WorkingDays
+        };
+
+        var exists = await _context.Offices.AnyAsync(o =>
+            o.ProvinceId == office.ProvinceId &&
+            (o.Name == office.Name || o.Address == office.Address)
+        );
+           
+
+        _context.OfficeSettings.Add(settings);
+        await _context.SaveChangesAsync();
+
+        return Ok(office);
     }
 
     [HttpPut("{id}")]

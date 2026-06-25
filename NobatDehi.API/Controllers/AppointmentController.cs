@@ -35,6 +35,10 @@ public class AppointmentController(AppDbContext context, CodeValidationService c
             // Validation of plan date range
             if (appointment.AppointmentDate < plan.StartDate || appointment.AppointmentDate > plan.EndDate)
                 return BadRequest("تاریخ نوبت خارج از بازه زمانی طرح است");
+
+            // Validation of the date of appointment
+            if (appointment.AppointmentDate <= DateOnly.FromDateTime(DateTime.Today)) 
+                return BadRequest("تاریخ نوبت مجاز نمی باشد.");  
             
             if (_codeValidationService.CheckCode(appointment.ForeignerCode, plan.CodeType)) // Validation of foreign code
             {
@@ -49,22 +53,39 @@ public class AppointmentController(AppDbContext context, CodeValidationService c
                     return BadRequest("این کد به حداکثر تعداد نوبت رسیده است");
 
 
+                // If Appointment was already token
+                var exists = await _context.Appointments
+                            .AnyAsync(o => o.OfficeId == appointment.OfficeId
+                                    && o.AppointmentDate == appointment.AppointmentDate
+                                    && o.AppointmentTime == appointment.AppointmentTime);
+                if(exists)
+                    return BadRequest("این نوبت قبلا ثبت شده است.");
 
-                // Validation of the date of appointment
                 var holiday = await _context.Holidays.
                     FirstOrDefaultAsync(h => h.Date == appointment.AppointmentDate);
-                var hasException = await _context.OfficeHolidayExceptions.
-                    AnyAsync(e => e.OfficeId == appointment.OfficeId && e.Date == appointment.AppointmentDate); // Check if it is a exception by office
+                var hasException = await _context.OfficeHolidayExceptions
+                    .Include(e => e.Holiday) // Check if it is a exception by office
+                    .AnyAsync(e => e.OfficeId == appointment.OfficeId && e.Holiday.Date == appointment.AppointmentDate); 
 
                 if (holiday != null && !hasException)
                     return BadRequest("این روز تعطیل است و این دفتر در این روز کار نمیکند");
-                    
+
                 var officeSetting = await _context.OfficeSettings
                     .FirstOrDefaultAsync(o => o.OfficeId == appointment.OfficeId);
                 if (officeSetting == null)
                     return BadRequest("تنظیمات دفتر پیدا نشد");
 
-                // گرفتن روز هفته نوبت (0=یکشنبه, 1=دوشنبه, ... 6=شنبه)
+                int minute = officeSetting.AppointmentDuration;
+                exists = await _context.Appointments.AnyAsync(o =>
+                            o.OfficeId == appointment.OfficeId &&
+                            o.AppointmentDate == appointment.AppointmentDate &&
+                            o.AppointmentTime >= appointment.AppointmentTime.AddMinutes(-minute) &&
+                            o.AppointmentTime <= appointment.AppointmentTime.AddMinutes(minute)
+                        );
+                if (exists)
+                    return BadRequest("در بازه زمانی نوبت دیگری ثبت شده است.");
+
+                // گرفتن روز های هفته نوبت (0=شنبه, 1=بکشنبه, ... 6=جمعه)
                 var dayOfWeek = (int)appointment.AppointmentDate.DayOfWeek;
 
                 // چک کردن که این روز توی روزهای کاری دفتره

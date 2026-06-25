@@ -15,5 +15,5 @@ public class Employee
 
     //Relation with their office
     public int OfficeId { get; set; }
-    public Office Office { get; set; } = null!;
+    public Office? Office { get; set; } = null!;
 }

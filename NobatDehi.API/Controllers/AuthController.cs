@@ -39,31 +39,32 @@ public class AuthController : ControllerBase
             return Unauthorized("Username or password is incorrect");
 
         // make token
-        var token = GenerateToken(employee.Id, employee.UserName);
+        var token = GenerateToken(employee.Id, employee.UserName, employee.OfficeId);
 
         return Ok(new { token });
     }
 
 
-    private string GenerateToken(int id, string username)
+    private string GenerateToken(int id, string username, int officeId)
+{
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
+    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+    var claims = new[]
     {
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        new Claim(ClaimTypes.NameIdentifier, id.ToString()),
+        new Claim(ClaimTypes.Name, username),
+        new Claim("OfficeId", officeId.ToString())
+    };
 
-        var claims = new[]
-        {
-            new Claim(ClaimTypes.NameIdentifier, id.ToString()),
-            new Claim(ClaimTypes.Name, username)
-        };
+    var token = new JwtSecurityToken(
+        issuer: _configuration["Jwt:Issuer"],
+        audience: _configuration["Jwt:Audience"],
+        claims: claims,
+        expires: DateTime.Now.AddDays(int.Parse(_configuration["Jwt:ExpireDays"]!)),
+        signingCredentials: credentials
+    );
 
-        var token = new JwtSecurityToken(
-            issuer: _configuration["Jwt:Issuer"],
-            audience: _configuration["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.Now.AddDays(int.Parse(_configuration["Jwt:ExpireDays"]!)),
-            signingCredentials: credentials
-        );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+    return new JwtSecurityTokenHandler().WriteToken(token);
+}
 }

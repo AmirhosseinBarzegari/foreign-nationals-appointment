@@ -23,6 +23,16 @@ public class HolidayController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(Holiday holiday)
     {
+        if (holiday.Date <= DateOnly.FromDateTime(DateTime.Today))
+        {
+            return BadRequest("تاریخ معتبر نیست.");
+        }
+
+        var exists = await _context.Holidays.
+                        AnyAsync(o => o.Date == holiday.Date);
+        if (exists)
+            return BadRequest("این تاریخ قبلا ثبت شده است.") ;               
+
         _context.Holidays.Add(holiday);
         await _context.SaveChangesAsync();
         return Ok();
@@ -34,6 +44,16 @@ public class HolidayController(AppDbContext context) : ControllerBase
         var existingHoliday = await _context.Holidays.FindAsync(id);
         if (existingHoliday != null)
         {
+            if (holiday.Date <= DateOnly.FromDateTime(DateTime.Today))
+            {
+                return BadRequest("تاریخ معتبر نیست.");
+            }
+
+            var exists = await _context.Holidays.
+                        AnyAsync(o => o.Date == holiday.Date);
+            if (exists)
+                return BadRequest("این تاریخ قبلا ثبت شده است.") ;   
+
             existingHoliday.ProvinceId = holiday.ProvinceId;
             existingHoliday.Reason = holiday.Reason;
             existingHoliday.OfficeId = holiday.OfficeId;

@@ -28,6 +28,14 @@ public class PlanDependencyController (AppDbContext context) : ControllerBase
 
         if (plan != null && requiredPlan != null)
         {
+            var exists = await _context.PlanDependencies.
+                            AnyAsync(o => o.PlanId == planDependency.PlanId
+                                    && o.RequiredPlanId == planDependency.RequiredPlanId);
+
+            if (exists)
+            {
+                return BadRequest("این وابستگی قبلا ثبت شده است.");
+            }                                    
             _context.PlanDependencies.Add(planDependency);
             await _context.SaveChangesAsync();
             return Ok();

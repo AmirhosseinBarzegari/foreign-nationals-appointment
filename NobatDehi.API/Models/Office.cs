@@ -9,5 +9,5 @@ public class Office
 
     // Relation with province
     public int ProvinceId { get; set; }
-    public Province Province { get; set; } = null!;
+    public Province? Province { get; set; }
 }

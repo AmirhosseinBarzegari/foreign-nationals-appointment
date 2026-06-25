@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using NobatDehi.API.Data;
 using NobatDehi.API.Models;
 
@@ -13,6 +14,7 @@ public class OfficeSettingsController(AppDbContext context) : ControllerBase
 {
     private readonly AppDbContext _context = context;
 
+    
     [HttpGet]
     public async Task<IActionResult> Get()
     {
@@ -24,10 +26,15 @@ public class OfficeSettingsController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(OfficeSettings officeSettings)
     {
+        int workingTime = (int)(officeSettings.EndTime - officeSettings.StartTime).TotalMinutes;
+        if (officeSettings.AppointmentDuration * officeSettings.DailyCapacity > workingTime)
+            return BadRequest("تعداد ظرفیت با بازه بین نوبت دهی همخوانی ندارد.");
+
         _context.OfficeSettings.Add(officeSettings);
         await _context.SaveChangesAsync();
         return Ok();
     }
+
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, OfficeSettings officeSetting)
