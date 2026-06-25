@@ -58,3 +58,6 @@ A RESTful API for managing appointments of foreign nationals, built with ASP.NET
 | GET/POST/PUT/DELETE | /api/plan | Plan management |
 | GET/POST/DELETE | /api/plandependency | Plan dependencies |
 | GET/POST/DELETE | /api/appointment | Appointment management |
+
+## Note
+The frontend in this repository is a minimal interface built with AI assistance, intended only for testing and demonstrating the backend APIs. The core focus of this project — and all backend logic, database design, and business rules — was designed and implemented manually.
