@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace NobatDehi.API.Migrations
+namespace NobatDehi.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class FixPlanDependency : Migration

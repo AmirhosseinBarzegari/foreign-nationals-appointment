@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NobatDehi.API.Data;
-using NobatDehi.API.Models;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
 
 namespace NobatDehi.API.Controllers;
 
@@ -23,7 +23,7 @@ public class PlanController(AppDbContext context) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create(Plan plan)
     {
-        if (plan.StartDate <= DateOnly.FromDateTime(DateTime.Today))
+        if (plan.StartDate < DateOnly.FromDateTime(DateTime.Today))
         {
             return BadRequest("تاریخ شروع اشتباه است.");
         }

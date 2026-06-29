@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NobatDehi.API.Data;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
 
 #nullable disable
 
-namespace NobatDehi.API.Migrations
+namespace NobatDehi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

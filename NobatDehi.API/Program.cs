@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using NobatDehi.API.Data;
-using NobatDehi.API.Services;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
+using NobatDehi.Application.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);

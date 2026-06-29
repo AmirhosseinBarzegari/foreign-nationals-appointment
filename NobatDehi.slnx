@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="NobatDehi.API/NobatDehi.API.csproj" />
+  <Project Path="NobatDehi.Application/NobatDehi.Application.csproj" />
+  <Project Path="NobatDehi.Domain/NobatDehi.Domain.csproj" />
+  <Project Path="NobatDehi.Infrastructure/NobatDehi.Infrastructure.csproj" />
+</Solution>

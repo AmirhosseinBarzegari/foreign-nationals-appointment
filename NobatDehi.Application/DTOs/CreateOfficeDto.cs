@@ -1,4 +1,4 @@
-namespace NobatDehi.API.DTOs;
+namespace NobatDehi.Application.DTOs;
 
 public class CreateOfficeDto
 {

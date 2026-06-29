@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NobatDehi.API.Data;
-using NobatDehi.API.Models;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
 
 namespace NobatDehi.API.Controllers;
 

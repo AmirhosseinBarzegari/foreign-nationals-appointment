@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using NobatDehi.API.Data;
-using NobatDehi.API.DTOs;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
+using NobatDehi.Application.DTOs; 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

@@ -1,4 +1,4 @@
-namespace NobatDehi.API.Models;
+namespace NobatDehi.Domain.Entities;
 
 public class Appointment
 {

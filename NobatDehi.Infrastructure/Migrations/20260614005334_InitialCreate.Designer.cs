@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NobatDehi.API.Data;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
 
 #nullable disable
 
-namespace NobatDehi.API.Migrations
+namespace NobatDehi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260617021454_FixPlanDependency")]
-    partial class FixPlanDependency
+    [Migration("20260614005334_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,8 +108,8 @@ namespace NobatDehi.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsOfficial")
                         .HasColumnType("bit");
@@ -389,7 +390,7 @@ namespace NobatDehi.API.Migrations
             modelBuilder.Entity("NobatDehi.API.Models.PlanDependency", b =>
                 {
                     b.HasOne("NobatDehi.API.Models.Plan", "Plan")
-                        .WithMany("Dependencies")
+                        .WithMany()
                         .HasForeignKey("PlanId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -403,11 +404,6 @@ namespace NobatDehi.API.Migrations
                     b.Navigation("Plan");
 
                     b.Navigation("RequiredPlan");
-                });
-
-            modelBuilder.Entity("NobatDehi.API.Models.Plan", b =>
-                {
-                    b.Navigation("Dependencies");
                 });
 #pragma warning restore 612, 618
         }

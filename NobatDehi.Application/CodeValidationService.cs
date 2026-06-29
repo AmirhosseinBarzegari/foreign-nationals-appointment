@@ -1,4 +1,4 @@
-namespace NobatDehi.API.Services;
+namespace NobatDehi.Application.Services;
 
 public class CodeValidationService
 {

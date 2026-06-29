@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using NobatDehi.API.Models;
+using NobatDehi.Domain.Entities;
 
-namespace NobatDehi.API.Data;
+namespace NobatDehi.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {

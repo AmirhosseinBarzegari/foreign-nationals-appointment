@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using NobatDehi.API.Data;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
 
 #nullable disable
 
-namespace NobatDehi.API.Migrations
+namespace NobatDehi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260617020914_updateHolidayDate")]
-    partial class updateHolidayDate
+    [Migration("20260617021454_FixPlanDependency")]
+    partial class FixPlanDependency
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -268,17 +269,12 @@ namespace NobatDehi.API.Migrations
                     b.Property<int>("PlanId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PlanId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("RequiredPlanId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlanId");
-
-                    b.HasIndex("PlanId1");
 
                     b.HasIndex("RequiredPlanId");
 
@@ -394,14 +390,10 @@ namespace NobatDehi.API.Migrations
             modelBuilder.Entity("NobatDehi.API.Models.PlanDependency", b =>
                 {
                     b.HasOne("NobatDehi.API.Models.Plan", "Plan")
-                        .WithMany()
+                        .WithMany("Dependencies")
                         .HasForeignKey("PlanId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("NobatDehi.API.Models.Plan", null)
-                        .WithMany("Dependencies")
-                        .HasForeignKey("PlanId1");
 
                     b.HasOne("NobatDehi.API.Models.Plan", "RequiredPlan")
                         .WithMany()

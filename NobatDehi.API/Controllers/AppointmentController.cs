@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NobatDehi.API.Data;
-using NobatDehi.API.Models;
-using NobatDehi.API.Services;
+using NobatDehi.Application.Services;
+using NobatDehi.Application.DTOs;
+using NobatDehi.Infrastructure.Data;
+using NobatDehi.Domain.Entities;
 
 namespace NobatDehi.API.Controllers;
 
@@ -40,6 +41,11 @@ public class AppointmentController(AppDbContext context, CodeValidationService c
             if (appointment.AppointmentDate <= DateOnly.FromDateTime(DateTime.Today)) 
                 return BadRequest("تاریخ نوبت مجاز نمی باشد.");  
             
+            // TODO: validation of appointment time
+
+
+
+
             if (_codeValidationService.CheckCode(appointment.ForeignerCode, plan.CodeType)) // Validation of foreign code
             {
                 var existingCount = await _context.Appointments

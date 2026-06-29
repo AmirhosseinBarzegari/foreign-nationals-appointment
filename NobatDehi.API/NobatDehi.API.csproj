@@ -21,4 +21,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NobatDehi.Application\NobatDehi.Application.csproj" />
+    <ProjectReference Include="..\NobatDehi.Infrastructure\NobatDehi.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

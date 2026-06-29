@@ -1,7 +1,7 @@
 
 using System.ComponentModel;
 
-namespace NobatDehi.API.Models;
+namespace NobatDehi.Domain.Entities;
 
 public class Employee
 {
